@@ -1,0 +1,735 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+header {
+  position: relative; /* necesario para posicionar el botón respecto al header */
+  height: 80px;
+  background-color: #3e8340;
+  display: flex;
+  justify-content: center; /* centra el logo horizontalmente */
+  align-items: center;     /* centra verticalmente */
+  padding: 0 20px;
+}
+
+header .logo {
+  max-height: 100px;
+}
+
+header img {
+
+  width: 100px;
+  height: 100px;
+
+
+}
+
+header img:hover {
+  transform: scale(1.05);
+}
+
+
+nav {
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px;
+  background-color: #3e8340;
+  height: 70px;
+
+
+}
+
+nav img {
+
+  margin-top: 10px;
+
+}
+
+nav img:hover {
+  transform: scale(1.05);
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #3e8340;
+  margin-top: auto;
+  gap: 20px;
+  padding: 10px 0;
+  /* ocupa todo el ancho y da espacio interno */
+  width: 100%;
+  /* asegura que el footer sea ancho completo */
+}
+
+footer img {
+
+  max-width: 50px;
+  /* no más grande que esto */
+  height: auto;
+  /* mantiene proporción */
+  object-fit: contain;
+  margin: 5px;
+
+}
+
+footer img:hover {
+  transform: scale(1.05);
+}
+
+
+table {
+  border-collapse: collapse;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+td {
+  border: 1px solid black;
+  padding: 0;
+  line-height: 0;
+}
+
+img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+
+#teclado table td {
+  cursor: pointer;
+  border: 2px solid #ccc;
+
+}
+
+#teclado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  gap: 8px;
+}
+
+.teclado-fila {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tecla {
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tecla:hover {
+  background-color: #c5e2b9;
+  transform: scale(1.05);
+}
+
+/* Colores dinámicos */
+.tecla-verde {
+  background-color: #4CAF50 !important;
+  color: white;
+}
+
+.tecla-naranja {
+  background-color: #FF9800 !important;
+  color: white;
+}
+
+.tecla-rojo {
+  background-color: #F44336 !important;
+  color: white;
+}
+
+/* Botones especiales */
+.tecla-especial {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+}
+
+.tecla-enter {
+  flex: 1.5;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.tablero {
+  margin: 20px auto;
+  border-collapse: separate;
+  /* separa bordes para efectos */
+  border-spacing: 8px;
+  /* espacio entre celdas */
+  display: table;
+}
+
+.celda {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  background-color: #f4f4f4;
+  border: 2px solid #ccc;
+  /* bordes suaves */
+  text-align: center;
+  vertical-align: middle;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* sombra sutil */
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.celda-activa {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.celda-verde {
+  background-color: #4CAF50;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 128, 0, 0.4);
+}
+
+.celda-naranja {
+  background-color: #FF9800;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.4);
+}
+
+.celda-rojo {
+  background-color: #F44336;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+}
+
+.celda:hover {
+  transform: scale(1.08);
+  transition: all 0.2s ease;
+}
+
+
+#contenedor {
+  position: relative;
+}
+
+tr {
+  position: relative;
+  /* para que la barra se posicione respecto a la fila */
+}
+
+#temporizador-flotante {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 100%;
+  margin-left: 15px;
+  height: 20px;
+  width: 200px;
+  /* ancho inicial más largo */
+  background-color: #4CAF50;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+  transition: width 1s linear;
+  line-height: 20px;
+  font-size: 16px;
+  /* ajustable si quieres que coincida más */
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+}
+
+#barra-tiempo {
+  height: 20px;
+  width: 100%;
+  /* ahora toma todo el contenedor */
+  background-color: #4CAF50;
+  border-radius: 8px;
+  transition: width 1s linear, background-color 0.5s linear;
+}
+
+
+
+/* Fondo oscuro semitransparente para el pop-up */
+#popup-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  /* al inicio oculto */
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Contenedor del pop-up */
+#popup {
+  background-color: #f4f4f4;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  /* misma que las celdas */
+  font-weight: bold;
+  color: #333;
+  transform: scale(0.5);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 90%;
+}
+
+/* Cuando se activa */
+#popup-fondo.mostrar #popup {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Botón del pop-up */
+#popup button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+#popup button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+#cronometro {
+  display: none;
+}
+/* Fondo del popup de reglas */
+#popup-reglas-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Caja del popup */
+#popup-reglas {
+  background-color: #f4f4f4;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(0.5);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  max-width: 450px;
+  width: 90%;
+}
+
+#popup-reglas.mostrar {
+  transform: scale(1);
+  opacity: 1;
+}
+
+#popup-reglas button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+#popup-reglas button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+#logoutForm {
+  position: absolute;
+  right: 20px; /* a la derecha */
+  top: 50%;
+  transform: translateY(-50%); /* centrado vertical respecto al header */
+  margin: 0;
+}
+
+#logoutForm button {
+  background-color: #F44336;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+
+#logoutForm button:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+#logoutPopupFondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+#logoutPopup {
+    background-color: #f4f4f4;
+    padding: 25px 35px;
+    border-radius: 15px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #333;
+    transform: scale(0.5);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    max-width: 300px;
+    width: 80%;
+}
+#logoutPopupFondo.mostrar {
+    display: flex;
+}
+#logoutPopupFondo.mostrar #logoutPopup {
+    transform: scale(1);
+    opacity: 1;
+}
+#logoutPopup p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Animación de entrada */
+@keyframes aparecer {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* --- Tablets grandes y laptops (hasta 1024px) --- */
+@media (max-width: 1024px) {
+  .celda {
+    width: 55px;
+    height: 55px;
+    font-size: 24px;
+  }
+
+  .tecla {
+    padding: 10px 14px;
+    font-size: 16px;
+  }
+
+  nav {
+    gap: 30px;
+    height: auto;
+    padding: 10px 0;
+  }
+
+  header img,
+  footer img {
+    width: 80px;
+    height: 80px;
+  }
+
+  #temporizador-flotante {
+    width: 150px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Ajustamos la barra para que se muestre dentro del contenedor móvil */
+  #temporizador-flotante {
+    width: 50px !important;
+    height: 100%;
+    display: block;
+    margin: auto;
+  }
+
+  header img {
+    width: 70px;
+    height: 70px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    gap: 20px;
+    height: auto;
+    padding: 10px 0;
+  }
+
+  nav img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .celda {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+
+  .teclado-fila {
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .tecla {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  #popup {
+    width: 90%;
+    padding: 20px;
+  }
+
+  #popup button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  #temporizador-flotante {
+    width: 120px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  header img {
+    width: 60px;
+    height: 60px;
+  }
+
+  footer img {
+    width: 50px;
+    height: auto;
+    object-fit: contain;
+    margin: 5px;
+  }
+
+  nav {
+    gap: 15px;
+  }
+
+  nav img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .celda {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .tecla {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  footer {
+    height: auto;
+    min-height: 60px;
+    /* mantener altura mínima */
+    flex-wrap: wrap;
+  }
+
+  #popup h2 {
+    font-size: 20px;
+  }
+
+  #popup p {
+    font-size: 14px;
+  }
+
+  #popup button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  #temporizador-flotante {
+    width: 100px;
+    font-size: 10px;
+  }
+}
+
+  .popup {
+    padding: 1.2rem;
+  }
+
+  .popup p {
+    font-size: 0.9rem;
+  }
+
+  .popup button {
+    width: 100%;
+  }
+
+
+/* --- Móviles muy pequeños (hasta 360px) --- */
+@media (max-width: 360px) {
+  .celda {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .tecla {
+    padding: 5px 7px;
+    font-size: 11px;
+  }
+
+  nav img {
+    width: 24px;
+    height: 24px;
+  }
+
+  footer img {
+    width: 30px;
+    height: 30px;
+  }
+
+  #popup {
+    padding: 15px;
+  }
+
+  #popup button {
+    font-size: 13px;
+  }
+}
+
+/* --- POPUP CONFIGURACIÓN (nuevo diseño coherente) --- */
+#popup-config-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+#popup-config {
+  background-color: #f4f4f4;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: #333;
+  transform: scale(0.5);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 90%;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+}
+
+#popup-config-fondo.mostrar #popup-config {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.config-opcion {
+  margin: 15px 0;
+  text-align: left;
+}
+
+.config-opcion input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.config-opcion label {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#popup-config button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+#popup-config button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+#popup-config .boton-secundario {
+  background-color: #f44336;
+}
+
+#popup-config .boton-secundario:hover {
+  background-color: #d32f2f;
+}
